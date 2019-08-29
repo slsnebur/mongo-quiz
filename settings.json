@@ -1,0 +1,7 @@
+{
+    "uri": "mongodb+srv://user:password@example.com",
+    "db": "db",
+    "collection": "collection",
+    "manualUpdates": false,
+    "key" : "example-key"
+}

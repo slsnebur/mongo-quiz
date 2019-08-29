@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='utf-8'>
+  <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+  <title>Simple quiz</title>
+  <!--JQuery-->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+
+  <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+</head>
+
+<body>
+
+  <div class="container" >
+    <div class="row">
+
+    <div class="col s12 card" style="margin-top: 1em">
+
+    <div class="card-title" style="font-size: 20px">
+    <p id="question">Database has not been loaded yet.</p>
+    </div>
+
+    <form action="#">
+      <div class="answer-label">
+        <p>
+          <label>
+            <input class="with-gap" value="firstQuestion" name="group1" type="radio" />
+            <span id="firstq">Answer 1</span>
+          </label>
+        </p>
+      </div>
+
+
+      <div class="answer-label">
+        <p>
+          <label>
+            <input class="with-gap" value="secondQuestion" name="group1" type="radio" />
+            <span id="secondq">Answer 2</span>
+          </label>
+        </p>
+      </div>
+
+
+      <div class="answer-label">
+        <p>
+          <label>
+            <input class="with-gap" value="thirdQuestion" name="group1" type="radio" />
+            <span id="thirdq">Answer 3</span>
+          </label>
+        </p>
+      </div>
+
+      <div class="answer-label">
+        <p>
+          <label>
+            <input class="with-gap" value="fourthQuestion" name="group1" type="radio" />
+            <span id="fourthq">Answer 4</span>
+          </label>
+        </p>
+      </div>
+
+    </form>
+    <p style="margin-top: 15px; display: flex; justify-content: center" id="tBox"></p>
+</div>
+</div>
+</div>
+
+</body>
+
+<script>
+  let link = "/question";
+
+    class Answer {
+    constructor(question, isCorrect) {
+      this.question = question;
+      this.isCorrect = isCorrect;
+    }
+  }
+
+  let answers = [];
+  getQuestion();
+
+  $(function () {
+    $('.answer-label input[type=radio]').change(function () {
+      let radiobutton = $(this);
+      if (($(this).val() === "firstQuestion" && answers[0].isCorrect == "0") || $(this).val() === "secondQuestion" &&
+        answers[1].isCorrect == "0" || ($(this).val() === "thirdQuestion" && answers[2].isCorrect == "0") || ($(this).val() ===
+          "fourthQuestion" && answers[3].isCorrect == "0")) {
+        $('#tBox').text("Wrong");
+        $('#tBox').css("color", "#f21010");
+      } else {
+        $('#tBox').text("Correct");
+        $('#tBox').css("color", "#37bf45");
+        setTimeout(function () {
+          getQuestion();
+          radiobutton.prop('checked', false);
+        }, 600);
+      }
+    })
+  })
+
+  function getQuestion() {
+    answers = [];
+    $('#tBox').text("");
+    $.getJSON(link).done(function (data) {
+      //Question
+      $('#question').text(data.question);
+
+      answers.push(new Answer(data.answer1, data.bool1));
+      answers.push(new Answer(data.answer2, data.bool2));
+      answers.push(new Answer(data.answer3, data.bool3));
+      answers.push(new Answer(data.answer4, data.bool4));
+      shuffle(answers);
+
+      //Answers
+      $('#firstq').text(answers[0].question);
+      $('#secondq').text(answers[1].question);
+      $('#thirdq').text(answers[2].question);
+      $('#fourthq').text(answers[3].question);
+    })
+
+  }
+
+  function shuffle(array) {
+  array.sort(() => Math.random() - 0.5);
+}
+
+</script>
+
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+</html>
