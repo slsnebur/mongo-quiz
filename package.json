@@ -1,5 +1,5 @@
 {
-  "name": "mongo-quiz",
+  "name": "mongoquiz",
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
@@ -7,16 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/slsnebur/mongo-quiz.git"
-  },
-  "author": "Karol Morawski",
+  "author": "slsnebur",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/slsnebur/mongo-quiz/issues"
-  },
-  "homepage": "https://github.com/slsnebur/mongo-quiz#readme",
   "dependencies": {
     "assert": "^2.0.0",
     "body-parser": "^1.19.0",

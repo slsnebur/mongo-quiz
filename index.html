@@ -23,7 +23,7 @@
     <div class="col s12 card" style="margin-top: 1em">
 
     <div class="card-title" style="font-size: 20px">
-    <p id="question">Database has not been loaded yet.</p>
+    <p id="question">If you're seeing this, database has not been loaded yet. F5</p>
     </div>
 
     <form action="#">
@@ -56,6 +56,7 @@
         </p>
       </div>
 
+      <!--
       <div class="answer-label">
         <p>
           <label>
@@ -64,9 +65,9 @@
           </label>
         </p>
       </div>
-
+    -->
     </form>
-    <p style="margin-top: 15px; display: flex; justify-content: center" id="tBox"></p>
+    <p style="margin-top: 15px; display: flex; justify-content: center" id="niewiem"></p>
 </div>
 </div>
 </div>
@@ -92,22 +93,23 @@
       if (($(this).val() === "firstQuestion" && answers[0].isCorrect == "0") || $(this).val() === "secondQuestion" &&
         answers[1].isCorrect == "0" || ($(this).val() === "thirdQuestion" && answers[2].isCorrect == "0") || ($(this).val() ===
           "fourthQuestion" && answers[3].isCorrect == "0")) {
-        $('#tBox').text("Wrong");
-        $('#tBox').css("color", "#f21010");
+        $('#niewiem').text("Wrong");
+        $('#niewiem').css("color", "#f21010");
       } else {
-        $('#tBox').text("Correct");
-        $('#tBox').css("color", "#37bf45");
+        $('#niewiem').text("Correct");
+        $('#niewiem').css("color", "#37bf45");
         setTimeout(function () {
           getQuestion();
           radiobutton.prop('checked', false);
-        }, 600);
+        }, 700);
       }
     })
   })
 
+
   function getQuestion() {
     answers = [];
-    $('#tBox').text("");
+    $('#niewiem').text("");
     $.getJSON(link).done(function (data) {
       //Question
       $('#question').text(data.question);
@@ -115,14 +117,14 @@
       answers.push(new Answer(data.answer1, data.bool1));
       answers.push(new Answer(data.answer2, data.bool2));
       answers.push(new Answer(data.answer3, data.bool3));
-      answers.push(new Answer(data.answer4, data.bool4));
+      //answers.push(new Answer(data.answer4, data.bool4));
       shuffle(answers);
 
       //Answers
       $('#firstq').text(answers[0].question);
       $('#secondq').text(answers[1].question);
       $('#thirdq').text(answers[2].question);
-      $('#fourthq').text(answers[3].question);
+      //$('#fourthq').text(answers[3].question);
     })
 
   }

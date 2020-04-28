@@ -27,6 +27,11 @@ app.get('/', function(req, res){
     res.sendFile(__dirname + '/index.html');
 });
 
+app.get('/killswitch', function(req, res) {
+    cachedDatabase = [];
+    res.send({message: "xD"});
+});
+
 //Serving questions and answers
 app.get('/question', function(req, res){
     res.send(cachedDatabase[getRandomInt(cachedDatabase.length-1)]);
@@ -79,9 +84,7 @@ MongoClient
             data = result;
             callback(data); 
         });
-
     });
-
 }
 
 function update() {
